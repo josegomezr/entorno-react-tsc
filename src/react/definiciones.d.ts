@@ -34,6 +34,8 @@ declare namespace spec {
     idPost ?: number
     tituloPost ?: string
     contenidoPost ?: string
+    autor ?: api.IUsuario
+    categoria ?: api.ICategoria
   }
 
   interface IPostRouteParams {

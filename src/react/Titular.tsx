@@ -12,6 +12,9 @@ export class Titular extends React.Component<spec.ITitularProps, {}> {
           {this.props.tituloPost}
           </Link>
         </h3>
+        <p>Publicado Por: <strong>{this.props.autor.nombre_usuario}
+          {this.props.autor.apellido_usuario}</strong>
+        </p>
         <p>{this.props.contenidoPost.substr(0, 100)}...</p>
         <Link to={`/post/${this.props.idPost}`}
           className="btn btn-primary"> 

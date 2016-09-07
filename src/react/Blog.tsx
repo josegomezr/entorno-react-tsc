@@ -24,8 +24,8 @@ export class Blog extends React.Component<{}, spec.IBlogState> {
     var noticias = this.state.posts.map((e) => {
       return (
         <Titular idPost={e.id_post} tituloPost={e.titulo_post} 
-          contenidoPost={e.contenido_post}
-          key={e.id_post} />
+          contenidoPost={e.contenido_post} autor={e.usuario} 
+          categoria={e.categoria} key={e.id_post} />
       );
     });
     return (
