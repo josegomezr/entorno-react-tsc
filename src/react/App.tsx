@@ -3,7 +3,6 @@ import * as $ from 'jquery';
 
 import {Link} from 'react-router';
 
-
 export class App extends React.Component<{}, {}> {
   render () {
     return (

@@ -18,7 +18,7 @@ return [
     ],
     'database' => [
     	'dsn' => 'mysql:host=localhost;dbname=noticias',
-    	'username' => 'root',
+    	'username' => 'noticias',
     	'password' => ''
     ]
 ];
