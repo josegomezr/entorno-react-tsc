@@ -1,0 +1,7 @@
+{
+  "folders": [{
+    "path": ".",
+    "folder_exclude_patterns": ["build", "node_modules", 
+    	"typings", "vendor", "public/dist", "public/components"]
+  }],
+}

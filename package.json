@@ -2,20 +2,20 @@
   "name": "tsc-react-example",
   "version": "1.0.0",
   "repository": "n/a",
-  "license": "n/a",
+  "license": "WTFPL",
   "scripts": {
-    "compilar": "node node_modules/gulp/bin/gulp.js compilar"
+    "compilar": "node node_modules/webpack/bin/webpack.js"
   },
   "devDependencies": {
-    "browserify": "^13.1.0",
-    "del": "^2.2.2",
-    "gulp": "^3.9.1",
-    "gulp-typescript": "^2.13.6",
+    "source-map-loader": "^0.1.5",
+    "ts-loader": "^0.8.2",
     "typescript": "^1.8.10",
-    "vinyl-source-stream": "^1.1.0"
+    "webpack": "^1.13.2"
   },
   "dependencies": {
+    "jquery": "^3.1.0",
     "react": "^15.3.1",
-    "react-dom": "^15.3.1"
+    "react-dom": "^15.3.1",
+    "react-router": "^2.7.0"
   }
 }
