@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "module": "umd",
+    "isolatedModules": true,
+    "jsx": "react",
+    "outDir": ".tmp"
+  },
+  "include": "src/"
+}

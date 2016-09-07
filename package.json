@@ -1,0 +1,21 @@
+{
+  "name": "tsc-react-example",
+  "version": "1.0.0",
+  "repository": "n/a",
+  "license": "n/a",
+  "scripts": {
+    "compilar": "node node_modules/gulp/bin/gulp.js compilar"
+  },
+  "devDependencies": {
+    "browserify": "^13.1.0",
+    "del": "^2.2.2",
+    "gulp": "^3.9.1",
+    "gulp-typescript": "^2.13.6",
+    "typescript": "^1.8.10",
+    "vinyl-source-stream": "^1.1.0"
+  },
+  "dependencies": {
+    "react": "^15.3.1",
+    "react-dom": "^15.3.1"
+  }
+}
