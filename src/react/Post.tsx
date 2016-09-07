@@ -25,6 +25,12 @@ export class Post extends React.Component<spec.IPostProps, spec.IPostState> {
       <div className="post">
         <h1>{this.state.post.titulo_post}</h1>
         <p>{this.state.post.contenido_post}</p>
+
+        <Link to="/"
+          className="btn btn-primary"> 
+          Volver al Inicio 
+        </Link>
+
       </div>
     );
   }
