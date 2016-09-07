@@ -6,10 +6,13 @@ import {App} from './App';
 
 import {Blog} from './Blog';
 
+import {Post} from './Post';
+
 render((
   <Router history={hashHistory}>
     <Route path="/" component={App}>
       <IndexRoute component={Blog} />
+      <Route path="post/:postId" component={Post} />
     </Route>
   </Router>
   ), $('#contenido').get(0)
