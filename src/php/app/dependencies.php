@@ -9,6 +9,13 @@ $container['renderer'] = function ($c) {
     return new Slim\Views\PhpRenderer($settings['template_path']);
 };
 
+$container['db'] = function ($c) {
+    $dbsettings = $c->get('database');
+    $pdo = new PDO($dbsettings['dsn'], $dbsettings['username'], $dbsettings['password']);
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    return $pdo;
+};
+
 // monolog
 $container['logger'] = function ($c) {
     $settings = $c->get('settings')['logger'];

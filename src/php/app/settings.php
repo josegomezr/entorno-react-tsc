@@ -16,4 +16,9 @@ return [
             'level' => \Monolog\Logger::DEBUG,
         ],
     ],
+    'database' => [
+    	'dsn' => 'mysql:host=localhost;dbname=noticias',
+    	'username' => 'root',
+    	'password' => ''
+    ]
 ];

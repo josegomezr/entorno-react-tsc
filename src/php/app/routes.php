@@ -17,22 +17,29 @@ $app->group('', function(){
 
 $app->group('/api', function(){
     $this->get('/listar[/]', function ($request, $response, $args) {
-        return $response->withJson([array(
-            'id' => 1,
-            'titulo' => 'Noticia No. 1',
-            'detalle' => 'daisddaisdsadas jo53245 daisddaisdsadas jo53245 daidsadas jo53245dhasdsadas jo53245 daidsadas jo53245dhasddaidsadas jo53245dhasdsadas jo53245 daidsadas jo53245dhasd'
-        ), array(
-            'id' => 2,
-            'titulo' => 'Noticia No. 2',
-            'detalle' => '245adaisdsadas jo53245 daidsadas jo53245dhadsadadaisdsadas jo53245 daidsadas jo53245dhasds jo53245adaisdsadas jo53245 daidsadas jo53245dhasds jo5'
-        )]);
+
+        $sql = "SELECT * FROM post";
+        $result = $this->db->query($sql);
+        $filas = $result->fetchAll();
+        $total = count($filas);
+        $this->logger->info("Listando todas las noticias ({$total} filas)");
+
+        return $response->withJson($filas);
     });
 
     $this->get('/leer/{id_post}[/]', function ($request, $response, $args) {
-        return $response->withJson(array(
-            'id' => time(),
-            'titulo' => 'Noticia No. ' . time(),
-            'detalle' => 'daisddaisdsadas jo53245 daisddaisdsadas jo53245 daidsadas jo53245dhasdsadas jo53245 daidsadas jo53245dhasddaidsadas jo53245dhasdsadas jo53245 daidsadas jo53245dhasd'
-        ));
+        $sql = "SELECT * FROM post WHERE id_post = ?";
+        $result =$this->db->prepare($sql);
+        $result->execute([ $args['id_post'] ]);
+        $fila = $result->fetch();
+        $code = 200;
+        if (!$fila) {
+        	$this->logger->info("Noticia#{$args['id_post']} NO encontrada");
+        	$code = 400;
+        }else{
+        	$this->logger->info("Noticia#{$args['id_post']} encontrada");
+
+        }
+        return $response->withJson($fila, $code);
     });
 });
