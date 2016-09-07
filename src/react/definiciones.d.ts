@@ -3,12 +3,24 @@ interface Window {
 }
 
 declare namespace api{
+
+  interface ICategoria {
+    id_categoria ?: number
+    nombre_categoria ?: string
+  }
+
+  interface IUsuario {
+    id_usuario ?: number
+    nombre_usuario ?: string
+    apellido_usuario ?: string
+  }
+
   interface IPost {
     id_post ?: number
     titulo_post ?: string
     contenido_post ?: string
-    id_categoria ?: number
-    id_usuario ?: number
+    categoria ?: ICategoria
+    usuario ?: IUsuario
   }
 }
 
