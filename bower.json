@@ -1,0 +1,23 @@
+{
+  "name": "tsc-react-example",
+  "description": "",
+  "main": "",
+  "authors": [
+    "Jose Gomez <1josegomezr@gmail.com>"
+  ],
+  "license": "WTFPL",
+  "homepage": "https://github.com/josegomezr/entorno-react-tsc",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "public/components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.7",
+    "react": "^15.3.1",
+    "lodash": "^4.15.0"
+  }
+}
