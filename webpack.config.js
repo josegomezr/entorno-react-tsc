@@ -17,8 +17,8 @@ module.exports = {
   },
   externals: {
     /*
-  	jquery: {
-  		root: 'jquery',
+    jquery: {
+        root: 'jquery',
         commonjs2: 'jquery',
         commonjs: 'jquery',
         amd: 'jquery',
@@ -40,14 +40,17 @@ module.exports = {
         commonjs2: 'react-router',
         commonjs: 'react-router',
         amd: 'react-router',
-  	}*/
+    }*/
   },
   plugins: [
     // new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor.bundle.js'),
     new webpack.optimize.UglifyJsPlugin({
-    	compress: {
-	        warnings: false
-	    }
+        compress: {
+            warnings: false
+        }
     }),
+    new webpack.DefinePlugin({
+        NODE_ENV: 'development'
+    })
   ],
 }
