@@ -44,7 +44,7 @@ $app->group('/api', function(){
         $total = count($filas);
         $this->logger->info("Listando todas las noticias ({$total} filas)");
         return $response->withJson($respuesta);
-    });
+    }); // fin de '/listar'
 
     $this->get('/leer/{id_post}[/]', function ($request, $response, $args) {
         $sql = "SELECT * FROM post
@@ -78,5 +78,54 @@ $app->group('/api', function(){
             )
         );  
         return $response->withJson($respuesta, $code);
-    });
-});
+    }); // fin '/leer/{id_post}/'
+
+    $this->post('/autenticar[/]', function($request, $response, $args){
+
+        $post = $request->getParsedBody();
+
+        if (! ($post['usuario'] && $post['clave']) ) {
+            $this->logger->info('Autenticacion Fallida - no hay datos');
+            $respuesta = [
+                'error' => 'credenciales-vacia'
+            ];
+            return $response->withJson($respuesta, 400);
+        }
+
+        $sql = "SELECT * FROM usuario
+        WHERE nombre_usuario = ? and clave_usuario = ?";
+
+        $resultado = $this->db->prepare($sql);
+        $sqlArgs = [ $post['usuario'], $post['clave'] ];
+        $resultado->execute($sqlArgs);
+
+        $fila = $resultado->fetch();
+
+        if(!$fila){
+            $mensaje = sprintf('Autenticacion de (%s) - no hay datos', 
+                implode(':', $sqlArgs));
+            $this->logger->info($mensaje);
+            $respuesta = [
+                'error' => 'malas-credenciales'
+            ];
+            return $response->withJson($respuesta, 400);
+        }
+
+        $sql = "INSERT INTO sesion (id_usuario) VALUES (?)";
+        $resultado = $this->db->prepare($sql);
+        $resultado->execute([ $fila['id_usuario'] ]);
+
+        $id_sesion = $this->db->lastInsertId();
+
+        $respuesta = [
+            'id_sesion' => $id_sesion,
+            'usuario' => [
+                'id_usuario' => $fila['id_usuario'],
+                'nombre_usuario' => $fila['nombre_usuario'],
+                'apellido_usuario' => $fila['apellido_usuario']
+            ]
+        ];
+        return $response->withJson($respuesta);
+    }); // fin '/autenticar/'
+
+}); //fin group '/api'

@@ -22,6 +22,11 @@ declare namespace api{
     categoria ?: ICategoria
     usuario ?: IUsuario
   }
+
+  interface ISesion {
+    id_sesion : string
+    usuario : IUsuario
+  }
 }
 
 declare namespace spec {
@@ -49,5 +54,15 @@ declare namespace spec {
   interface IPostState {
     post ?: api.IPost    
   }
+
+  interface ILoginFormProps{
+  	router ?: ReactRouter.InjectedRouter
+  }
+
+	interface ILoginFormState{
+		error ?: boolean
+		clave ?: string
+		usuario ?: string
+	}
 }
 
