@@ -12,8 +12,10 @@ export class Titular extends React.Component<spec.ITitularProps, {}> {
           {this.props.tituloPost}
           </Link>
         </h3>
-        <p>Publicado Por: <strong>{this.props.autor.nombre_usuario}
-          {this.props.autor.apellido_usuario}</strong>
+        <p>Publicado Por:&nbsp;
+          <strong>{this.props.autor.nombre_usuario}&nbsp;{this.props.autor.apellido_usuario}</strong>
+          &nbsp;-&nbsp;
+          En:&nbsp;<strong>{this.props.categoria.nombre_categoria}</strong>
         </p>
         <p>{this.props.contenidoPost.substr(0, 100)}...</p>
         <Link to={`/post/${this.props.idPost}`}
