@@ -128,4 +128,20 @@ $app->group('/api', function(){
         return $response->withJson($respuesta);
     }); // fin '/autenticar/'
 
+    $this->get('/admin/eliminar/{id_post}[/]', 
+    	function($request, $response, $args){
+
+    	$sql = "DELETE FROM post WHERE id_post = ?";
+    	$resultado = $this->db->prepare($sql);
+    	$resultado->execute([ $args['id_post'] ]);
+
+    	if ($resultado->rowCount() == 0) {
+    		$respuesta = [
+    			'error' => 'no-encontrado'
+    		];
+    		return $response->withJson($response, 400);
+    	}
+
+    	return $response->withJson(true, 204);
+    });
 }); //fin group '/api'

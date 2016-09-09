@@ -1,10 +1,20 @@
 import * as React from 'react';
 import * as $ from 'jquery';
 
-import {Link} from 'react-router';
+import {Link, withRouter} from 'react-router';
 
-export class Admin extends React.Component<{}, {}> {
-	
+@withRouter
+class Admin extends React.Component<spec.IAdminProps, {}> {
+  constructor(){
+    super();
+    this.cerrarSesion = this.cerrarSesion.bind(this);
+  }
+  cerrarSesion(){
+    localStorage.setItem('token', null);
+    this.props.router.replace({
+      pathname: '/login'
+    });
+  }
   render () {
     return (
       <div>
@@ -26,7 +36,7 @@ export class Admin extends React.Component<{}, {}> {
               </ul>
               <ul className="nav navbar-nav navbar-right">
                 <li>
-                  <Link to="/">Logout</Link>
+                  <a href="#" onClick={this.cerrarSesion}>Logout</a>
                 </li>
               </ul>
             </div>
@@ -41,3 +51,5 @@ export class Admin extends React.Component<{}, {}> {
     );
   }
 }
+
+export {Admin}

@@ -31,9 +31,6 @@ declare namespace api{
 
 declare namespace spec {
 
-  interface IBlogState {
-    posts ?: Array<api.IPost>
-  }
   
   interface ITitularProps {
     idPost ?: number
@@ -56,13 +53,25 @@ declare namespace spec {
   }
 
   interface ILoginFormProps{
-  	router ?: ReactRouter.InjectedRouter
+    router ?: ReactRouter.InjectedRouter
   }
 
-	interface ILoginFormState{
-		error ?: boolean
-		clave ?: string
-		usuario ?: string
-	}
+  interface IAdminProps{
+    router ?: ReactRouter.InjectedRouter
+  }
+
+  interface ILoginFormState{
+    error ?: boolean
+    clave ?: string
+    usuario ?: string
+  }
+
+  interface IBlogState {
+    posts ?: Array<api.IPost>
+  }
+  
+  interface IListarPostState {
+    posts ?: Array<api.IPost>
+  }
 }
 
