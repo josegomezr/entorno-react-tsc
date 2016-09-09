@@ -53,7 +53,8 @@ export class ListarPost extends React.Component<{}, spec.IListarPostState> {
             <Link to={`/admin/editar/${e.id_post}`} 
               className="btn btn-warning">Editar</Link>
             
-            <button className="btn btn-danger" id={e.id_post} onClick={this.eliminarNoticia}>Eliminar</button>
+            <button className="btn btn-danger" id={e.id_post} 
+              onClick={this.eliminarNoticia}>Eliminar</button>
           </td>
         </tr>
       );
