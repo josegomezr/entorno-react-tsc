@@ -62,6 +62,13 @@ export class ListarPost extends React.Component<{}, spec.IListarPostState> {
     return (
       <div>
         <h1>Administrar Noticias</h1>
+        <div className="pull-right">
+          <Link to="/admin/crear" className="btn btn-info">
+            Crear Noticia
+          </Link>
+        </div>
+        <div className="clearfix" />
+        <br />
         <div className="lista-noticias">
           <table className="table table-bordered">
             <thead>

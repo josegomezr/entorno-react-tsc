@@ -13,6 +13,9 @@ import {forzarAutenticacion} from './Autenticacion'
 
 import {ListarPost} from './ListarPost'
 
+
+import {CrearForm} from './CrearForm';
+
 render((
   <Router history={hashHistory}>
     <Route path="/" component={App}>
@@ -20,8 +23,9 @@ render((
       <Route path="post/:postId" component={Post} />
       <Route path="login" component={LoginForm} />
     </Route>
-    <Route path="/admin" component={Admin} onEnter={forzarAutenticacion}>
+    <Route path="/admin/" component={Admin} onEnter={forzarAutenticacion}>
       <IndexRoute component={ListarPost} />
+      <Route path="crear" component={CrearForm} />
     </Route>
   </Router>
   ), $('#contenido').get(0)

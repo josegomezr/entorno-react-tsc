@@ -43,7 +43,7 @@ class LoginForm extends React.Component<spec.ILoginFormProps, spec.ILoginFormSta
       clave : this.state.clave
     }).done( (sesion : api.ISesion) => {
       localStorage.setItem('token', sesion.id_sesion);
-      this.props.router.replace('/admin');
+      this.props.router.replace('/admin/');
     }).fail ( () => {
       this.setState({
         error: true

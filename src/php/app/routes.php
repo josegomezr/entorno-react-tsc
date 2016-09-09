@@ -17,6 +17,20 @@ $app->group('', function(){
 
 $app->group('/api', function(){
 
+    $this->get('/categorias/listar[/]', function($request, $response, $args){
+      $sql = "SELECT * FROM categoria";
+      $result = $this->db->query($sql);
+          $filas = $result->fetchAll();
+          return $response->withJson($filas);
+    });
+
+    $this->get('/usuarios/listar[/]', function($request, $response, $args){
+      $sql = "SELECT id_usuario, nombre_usuario, apellido_usuario FROM usuario";
+      $result = $this->db->query($sql);
+          $filas = $result->fetchAll();
+          return $response->withJson($filas);
+    });
+
     $this->get('/listar[/]', function ($request, $response, $args) {
         $sql = "SELECT * FROM post
         LEFT JOIN categoria USING (id_categoria)
@@ -129,19 +143,50 @@ $app->group('/api', function(){
     }); // fin '/autenticar/'
 
     $this->get('/admin/eliminar/{id_post}[/]', 
-    	function($request, $response, $args){
+      function($request, $response, $args){
 
-    	$sql = "DELETE FROM post WHERE id_post = ?";
-    	$resultado = $this->db->prepare($sql);
-    	$resultado->execute([ $args['id_post'] ]);
+      $sql = "DELETE FROM post WHERE id_post = ?";
+      $resultado = $this->db->prepare($sql);
+      $resultado->execute([ $args['id_post'] ]);
 
-    	if ($resultado->rowCount() == 0) {
-    		$respuesta = [
-    			'error' => 'no-encontrado'
-    		];
-    		return $response->withJson($response, 400);
-    	}
+      if ($resultado->rowCount() == 0) {
+        $respuesta = [
+          'error' => 'no-encontrado'
+        ];
+        return $response->withJson($response, 400);
+      }
 
-    	return $response->withJson(true, 204);
+      return $response->withJson(true, 204);
+    });
+
+    $this->post('/admin/crear[/]', function($request, $response, $args){
+      $campos = array('usuario', 'titulo', 'contenido', 'categoria');
+      $post = $request->getParsedBody();
+
+      $valid = true;
+      foreach ($campos as $campo) {
+        $valid = $valid && !!$post[$campo];
+      }
+
+      if(!$valid){
+        $respuesta = array(
+          'error' => 'validation'
+        );
+        return $response->withJson($respuesta, 400);
+      }
+      $sql = "
+      INSERT INTO post (id_usuario, id_categoria, titulo_post, contenido_post) 
+      VALUES (:usuario, :categoria, :titulo, :contenido);";
+      $resultado = $this->db->prepare($sql);
+      $sqlArgs = array_intersect_key($post, array_flip($campos));
+      $resultado->execute($sqlArgs);
+      if ($resultado->rowCount() == 0) {
+        $respuesta = array(
+          'error' => 'sql'
+        );
+        return $response->withJson($respuesta, 400);
+      }
+
+      return $response->withJson(true, 204);
     });
 }); //fin group '/api'

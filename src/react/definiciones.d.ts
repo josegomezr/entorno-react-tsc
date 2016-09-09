@@ -73,5 +73,27 @@ declare namespace spec {
   interface IListarPostState {
     posts ?: Array<api.IPost>
   }
+  interface ICrearFormProps {
+    router ?: ReactRouter.InjectedRouter
+  }
+
+  interface IModeloPost extends compat.Map {
+    titulo ?: string
+    contenido ?: string
+    usuario ?: string
+    categoria ?: string
+  }
+
+  interface ICrearFormState {
+    error ?: boolean,
+    categorias ?: Array<api.ICategoria>
+    usuarios ?: Array<api.IUsuario>
+    modelo ?: IModeloPost
+  }
 }
 
+declare namespace compat {
+  interface Map {
+    [k:string] : any
+  }
+}
