@@ -15,6 +15,7 @@ import {ListarPost} from './ListarPost'
 
 
 import {CrearForm} from './CrearForm';
+import {EditarForm} from './EditarForm';
 
 render((
   <Router history={hashHistory}>
@@ -25,6 +26,7 @@ render((
     </Route>
     <Route path="/admin/" component={Admin} onEnter={forzarAutenticacion}>
       <IndexRoute component={ListarPost} />
+      <Route path="editar/:postId" component={EditarForm} />
       <Route path="crear" component={CrearForm} />
     </Route>
   </Router>

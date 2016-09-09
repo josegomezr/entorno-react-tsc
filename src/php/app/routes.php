@@ -94,6 +94,19 @@ $app->group('/api', function(){
         return $response->withJson($respuesta, $code);
     }); // fin '/leer/{id_post}/'
 
+    $this->get('/validar-token/{token}[/]', function($request, $response, $args){
+      $sql = "SELECT * FROM sesion WHERE id_sesion = ?
+        AND TIMESTAMPDIFF(HOUR, marca_tiempo_sesion, NOW()) < 1";
+      $resultado = $this->db->prepare($sql);
+      $resultado->execute( [$args['token']] );
+      if ($resultado->rowCount() == 0) {
+        $respuesta = array('error' => 'expired-token');
+        return $response->withJson($respuesta, 400);
+      }
+
+      return $response->withJson(true, 204);
+    });
+
     $this->post('/autenticar[/]', function($request, $response, $args){
 
         $post = $request->getParsedBody();
@@ -107,7 +120,7 @@ $app->group('/api', function(){
         }
 
         $sql = "SELECT * FROM usuario
-        WHERE nombre_usuario = ? and clave_usuario = ?";
+        WHERE nombre_usuario = ? and clave_usuario = SHA1(?)";
 
         $resultado = $this->db->prepare($sql);
         $sqlArgs = [ $post['usuario'], $post['clave'] ];
@@ -186,6 +199,38 @@ $app->group('/api', function(){
         );
         return $response->withJson($respuesta, 400);
       }
+
+      return $response->withJson(true, 204);
+    });
+
+    $this->post('/admin/editar/{id_post}[/]', function($request, $response, $args){
+      $campos = array('usuario', 'titulo', 'contenido', 'categoria');
+      $post = $request->getParsedBody();
+
+      $valid = true;
+      foreach ($campos as $campo) {
+        $valid = $valid && !!$post[$campo];
+      }
+
+      if(!$valid){
+        $respuesta = array(
+          'error' => 'validation'
+        );
+        return $response->withJson($respuesta, 400);
+      }
+
+      $sql = "UPDATE post SET
+          id_usuario = :usuario,
+          titulo_post = :titulo,
+          contenido_post = :contenido
+          id_categoria = :categoria
+        WHERE id_post = :id_post";
+      $resultado = $this->db->prepare($sql);
+
+      $sqlArgs = array_intersect_key($post, array_flip($campos));
+      $sqlArgs['id_post'] = $args['id_post'];
+
+      $resultado->execute($sqlArgs);
 
       return $response->withJson(true, 204);
     });

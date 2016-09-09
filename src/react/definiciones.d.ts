@@ -5,18 +5,18 @@ interface Window {
 declare namespace api{
 
   interface ICategoria {
-    id_categoria ?: number
+    id_categoria ?: string
     nombre_categoria ?: string
   }
 
   interface IUsuario {
-    id_usuario ?: number
+    id_usuario ?: string
     nombre_usuario ?: string
     apellido_usuario ?: string
   }
 
   interface IPost {
-    id_post ?: number
+    id_post ?: string
     titulo_post ?: string
     contenido_post ?: string
     categoria ?: ICategoria
@@ -33,7 +33,7 @@ declare namespace spec {
 
   
   interface ITitularProps {
-    idPost ?: number
+    idPost ?: string
     tituloPost ?: string
     contenidoPost ?: string
     autor ?: api.IUsuario
@@ -90,7 +90,24 @@ declare namespace spec {
     usuarios ?: Array<api.IUsuario>
     modelo ?: IModeloPost
   }
+
+  interface IEditarFormParams {
+    postId ?: string
+  }
+
+  interface IEditarFormProps {
+    router ?: ReactRouter.InjectedRouter
+    routeParams ?: IEditarFormParams
+  }
+
+  interface IEditarFormState {
+    error ?: boolean
+    modelo ?: IModeloPost
+    categorias ?: Array<api.ICategoria>
+    usuarios ?: Array<api.IUsuario>
+  }
 }
+
 
 declare namespace compat {
   interface Map {
