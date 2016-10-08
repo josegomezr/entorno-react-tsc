@@ -1,7 +1,7 @@
 var webpack = require('webpack');
 
 module.exports = {  
-  entry: './src/react/main.tsx',
+  entry: './src/main.tsx',
   output: {
     path: './public/dist/',
     filename: 'bundle.js'
