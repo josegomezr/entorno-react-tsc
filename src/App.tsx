@@ -1,8 +1,8 @@
 import * as React from 'react';
-import * as $ from 'jquery';
 
 import {Link} from 'react-router';
 
+import {ListaContactos} from './ListaContactos';
 
 export class App extends React.Component<{}, {}> {
   render () {
@@ -26,7 +26,7 @@ export class App extends React.Component<{}, {}> {
               </ul>
               <ul className="nav navbar-nav navbar-right">
                 <li>
-                  <a href="#">Ir al Admin</a>
+                  <Link to="/formulario">Ir al formulario</Link>
                 </li>
               </ul>
             </div>
